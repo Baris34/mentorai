@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ders {
+  id      Int     @id @default(autoincrement())
+  name    String  @unique
+  konular Konu[]
+}
+
+model Konu {
+  id   Int    @id @default(autoincrement())
+  name String
+  
+  dersId Int
+  ders   Ders @relation(fields: [dersId], references: [id])
+  
+  konuCalismasiTamamlandi Boolean @default(false)
+  tekrar1Tamamlandi      Boolean @default(false)
+  tekrar2Tamamlandi      Boolean @default(false)
+  tekrar3Tamamlandi      Boolean @default(false)
+  tekrar4Tamamlandi      Boolean @default(false)
+  kaynak1Tamamlandi      Boolean @default(false)
+  kaynak2Tamamlandi      Boolean @default(false)
+  kaynak3Tamamlandi      Boolean @default(false)
+  kaynak4Tamamlandi      Boolean @default(false)
+}
